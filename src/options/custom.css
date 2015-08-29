@@ -1,0 +1,8 @@
+/*
+// Add your own style rules here, not in css/main.css
+// or css/setting.css for easy updating reasons.
+*/
+
+input[type=text], input[type=password] {
+    width: 450px;
+}

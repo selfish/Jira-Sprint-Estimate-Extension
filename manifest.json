@@ -1,0 +1,44 @@
+{
+  "manifest_version": 2,
+  "name": "Jira Sprint Easy Estimate",
+  "description": "Shows time estimation by assignee for a jira sprint.",
+  "version": "1.0",
+  "permissions": [
+    "storage"
+  ],
+  "icons": {
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
+  },
+  "browser_action": {
+    "default_popup": "src/browser_action/browser_action.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*apid*oard*rapid*iew=*view=planning*"
+      ],
+      "js": [
+        "src/lib/lodash.js",
+        "src/lib/jquery-2.1.4.min.js",
+        "src/lib/bluebird.min.js",
+        "src/content_script/helper.js",
+        "src/content_script/estimateModal.js",
+        "src/content_script/content_script.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "options_page": "src/options/index.html",
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+  "web_accessible_resources": [
+    "img/icon128.png",
+    "img/unassigned.png"
+  ],
+  "permissions": [
+    "https://*/*",
+    "http://*/*",
+    "tabs"
+  ]
+}

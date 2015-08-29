@@ -1,0 +1,22 @@
+
+body {
+    width: 600px;
+    white-space: pre;
+    font-family: monospace;
+    font-size: 16px;
+}
+
+#result {
+    margin: 15px;
+}
+
+input, select {
+    width: 520px;
+    margin-bottom: 10px;
+    border-color: inherit;
+}
+
+td {
+    padding: 2px 15px;
+}
+

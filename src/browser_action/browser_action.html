@@ -1,0 +1,19 @@
+<!doctype html>
+<head>
+    <script src="../lib/lodash.js"></script>
+    <script src="../lib/jquery-2.1.4.min.js"></script>
+    <script src="../lib/bluebird.min.js"></script>
+    <!-- Make sure to load this one last, as it adds a base tag: -->
+    <script src="browser_action.js"></script>
+    <link rel="stylesheet" type="text/css" href="browser_action.css">
+</head>
+<div>
+    <label for="host">Jira Server:</label>
+    <input id="host" type="text">
+    <label for="jql">Custom JQL:</label>
+    <input id="jql" type="text">
+    <label for="sprintSelect">Sprint:</label>
+    <select id="sprintSelect"></select>
+</div>
+<div id="result">Loading.</div>
+</body>
