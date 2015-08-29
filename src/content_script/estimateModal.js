@@ -62,22 +62,43 @@ function estimateBase(sprintName, trs) {
 
 
 function mkBlanket() {
-    var blanket = $('<div class="aui-blanket" tabindex="0"></div>');
+    var blanket = $('<div id="blanket" class="aui-blanket" tabindex="0"></div>');
+    var clock = $('<div id="clock" class="jira-dialog box-shadow jira-dialog-open popup-width-medium jira-dialog-content-ready" style="margin-left: auto; margin-right: auto; left: 0; right: 0; padding: 50px 70px; text-align: center;position: absolute;width: 160px;top: 100px;" >' +
+        '<img src="' + chrome.extension.getURL('/img/icon128.png') + '"></img>' +
+        '<br><H2 id="working">Working...</H2>' +
+        '</div>');
     blanket.click(hideEstimate);
-    $('body').append(blanket);
+    $('body').append(blanket).append(clock);
+
+    var texts = ['Querying...', 'Loading...', 'Aggregating...', 'Working...'];
+    var idx = 0;
+
+    function tick() {
+        var clock = $('#working');
+        if (clock) {
+            clock.html(texts[idx++ % (texts.length)]);
+            setTimeout(tick, 1500)
+        }
+    }
+
+    tick();
+
 }
 function mkEstimate(estimate) {
-    mkBlanket();
+    //mkBlanket();
     estimate.click(hideEstimate);
     $('body').append(estimate);
+    $('#clock').remove();
 }
 
 function hideEstimate() {
-    $('.aui-blanket').remove();
+    $('#blanket').remove();
     $('#extEstimate').remove();
+    $('#clock').remove();
 }
 
 function showEstimate(sprintID, sprintName) {
+    mkBlanket();
     ajax(host('rest/api/2/search?maxResults=1000&jql=Sprint%20%3D%20' + sprintID))
         .then(JSON.parse)
         .then(function (response) {
@@ -90,7 +111,7 @@ function showEstimate(sprintID, sprintName) {
                 assignee: (!!issue.fields.assignee ? issue.fields.assignee.displayName : 'Unassigned'),
                 assigneeAvatar: (!!issue.fields.assignee
                     ? issue.fields.assignee.avatarUrls['32x32']
-                    : chrome.extension.getURL('/img/unassigned.png'))
+                    : chrome.extension.getURL('/img/icon128.png'))
             }
         })
         .then(_.compact)
