@@ -14,7 +14,7 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*/*apid*oard*rapid*iew=*view=planning*"
+        "*://*/*apid*oard*rapid*iew=*"
       ],
       "js": [
         "src/lib/lodash.js",
