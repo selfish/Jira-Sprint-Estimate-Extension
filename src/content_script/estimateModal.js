@@ -107,7 +107,7 @@ function showEstimate(sprintID, sprintName) {
         .map(function (issue) {
             return (!issue.fields.timeoriginalestimate) ? false : {
                 originalEstimate: issue.fields.timeoriginalestimate,
-                remainingEstimate: issue.fields.timeestimate,
+                remainingEstimate: (issue.fields.status.name != 'Closed' && issue.fields.status.name != 'Resolved') ? issue.fields.timeestimate : 0,
                 assignee: (!!issue.fields.assignee ? issue.fields.assignee.displayName : 'Unassigned'),
                 assigneeAvatar: (!!issue.fields.assignee
                     ? issue.fields.assignee.avatarUrls['32x32']
