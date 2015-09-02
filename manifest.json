@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Jira Sprint Easy Estimate",
   "description": "Shows time estimation by assignee for a jira sprint.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "permissions": [
     "storage"
   ],
