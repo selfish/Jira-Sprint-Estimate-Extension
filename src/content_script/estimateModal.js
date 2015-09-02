@@ -98,6 +98,8 @@ function hideEstimate() {
 }
 
 function showEstimate(sprintID, sprintName) {
+    var completedStatuses = ['resolved', 'closed'];
+
     mkBlanket();
     ajax(host('rest/api/2/search?maxResults=1000&jql=Sprint%20%3D%20' + sprintID))
         .then(JSON.parse)
@@ -107,7 +109,7 @@ function showEstimate(sprintID, sprintName) {
         .map(function (issue) {
             return (!issue.fields.timeoriginalestimate) ? false : {
                 originalEstimate: issue.fields.timeoriginalestimate,
-                remainingEstimate: (issue.fields.status.name != 'Closed' && issue.fields.status.name != 'Resolved') ? issue.fields.timeestimate : 0,
+                remainingEstimate: _.contains(completedStatuses, issue.fields.status.name.toLowerCase()) ? 0 : issue.fields.timeestimate,
                 assignee: (!!issue.fields.assignee ? issue.fields.assignee.displayName : 'Unassigned'),
                 assigneeAvatar: (!!issue.fields.assignee
                     ? issue.fields.assignee.avatarUrls['32x32']
